@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
+  <Id>7120fdf8-e411-4513-9016-783f24eb3fd9</Id>
+
+  <Version>1.5.5</Version>
+
+  <ProviderName>Sample</ProviderName>
+
+  <DefaultLocale>en-US</DefaultLocale>
+
+  <DisplayName DefaultValue="Sample" />
+
+  <Description DefaultValue="Sample" />
+
+  <IconUrl DefaultValue="https://localhost:3000/icons/64.png" />
+
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/icons/128.png" />
+
+  <SupportUrl DefaultValue="https://www.sample.com/"/>
+
+  <AppDomains>
+    <AppDomain>https://login.microsoftonline.com</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.12" />
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemEdit">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://localhost:3000/taskpane.html" />
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteItem</Permissions>
+
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit" />
+  </Rule>
+
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Description resid="residAppDescription" />
+
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.12">
+          <bt:Set Name="Mailbox" />
+        </bt:Sets>
+      </Requirements>
+
+      <Hosts>
+        <Host xsi:type="MailHost">
+
+          <Runtimes>
+            <!-- HTML file that references the JavaScript event handlers. This is used by Outlook on the web. -->
+            <Runtime resid="LaunchEvents.Url">
+              <!-- JavaScript file that contains the event handlers. This is used by Outlook on Windows. -->
+              <Override type="javascript" resid="JSRuntime.Url"/>
+            </Runtime>
+          </Runtimes>
+
+          <DesktopFormFactor>
+            <FunctionFile resid="Commands.Url" />
+
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnMessageCompose" FunctionName="onMessageComposeHandler"/>
+                <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser" />
+              </LaunchEvents>
+              <!-- Identifies the runtime to be used by the add-in (also referenced by the Runtime element). -->
+              <SourceLocation resid="LaunchEvents.Url"/>
+            </ExtensionPoint>
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/icons/16.png" />
+        </bt:Images>
+
+        <bt:Urls>
+          <bt:Url id="LaunchEvents.Url" DefaultValue="https://localhost:3000/launch-events.html" />
+          <bt:Url id="JSRuntime.Url" DefaultValue="https://localhost:3000/launchevents.js"/>
+        </bt:Urls>
+      </Resources>
+      
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>
