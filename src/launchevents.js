@@ -1,7 +1,6 @@
 Office.onReady()
 
 function eventHandlers(event) {
-  console.log('hey')
   setInterval(() => {
     console.log('working')
   }, 100)
