@@ -1,14 +1,13 @@
 Office.onReady()
 
 function eventHandlers(event) {
-  console.log('hey')
-  setInterval(() => {
-    console.log('working')
-  }, 100)
+  console.log('preprocess')
+  event.completed()
 }
 
 function onMessageSendHandler(event) {
-  event.completed({ allowEvent: false, errorMessage: '' })
+  console.log('sending')
+  event.completed({ allowEvent: true })
 }
 
 Office.actions.associate('onMessageComposeHandler', eventHandlers)
